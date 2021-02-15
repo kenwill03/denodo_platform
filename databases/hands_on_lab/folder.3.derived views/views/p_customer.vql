@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW p_customer FOLDER = '/3.derived views' AS SELECT customer.c_custkey AS c_custkey, customer.c_name AS c_name, customer.c_address AS c_address, customer.c_nationkey AS c_nationkey, customer.c_phone AS c_phone, customer.c_acctbal AS c_acctbal, customer.c_mktsegment AS c_mktsegment, customer.c_comment AS c_comment FROM customer;
+
+ALTER VIEW p_customer
+ LAYOUT (customer = [20, 20, 207, 185]);
+
