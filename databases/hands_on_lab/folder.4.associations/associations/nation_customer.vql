@@ -1,0 +1,6 @@
+﻿CREATE OR REPLACE ASSOCIATION nation_customer REFERENTIAL CONSTRAINT 
+FOLDER = '/4.associations'
+    ENDPOINT customer nation PRINCIPAL (0,1)
+    ENDPOINT nation customer (0,*)
+    ADD MAPPING n_nationkey=c_nationkey;
+

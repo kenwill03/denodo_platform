@@ -1,0 +1,27 @@
+﻿CREATE OR REPLACE WRAPPER JDBC bv_test
+    FOLDER = '/2.base views'
+    DATASOURCENAME=ds_oracle_express
+    SQLSENTENCE='select to_char(o_totalprice, ''9999.9'') as formated_value, o_totalprice as original_value from ORDERS'   
+    OUTPUTSCHEMA (
+        formated_value = 'FORMATED_VALUE' :'java.lang.String' (sourcetypedecimals='0', sourcetypesize='7', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE NOT UPDATEABLE,
+        original_value = 'ORIGINAL_VALUE' :'java.math.BigDecimal' (sourcetypeid='2', sourcetypename='NUMBER')  SORTABLE NOT UPDATEABLE
+    );
+
+CREATE OR REPLACE TABLE bv_test I18N jp (
+        formated_value:text (sourcetypeid = '12', sourcetypedecimals = '0', sourcetypesize = '7'),
+        original_value:decimal (sourcetypeid = '3')
+    )
+    FOLDER = '/2.base views'
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_test(
+        I18N jp
+        CONSTRAINTS (
+             ADD formated_value NOS ZERO ()
+             ADD original_value NOS ZERO ()
+        )
+        OUTPUTLIST (formated_value, original_value
+        )
+        WRAPPER (jdbc bv_test)
+    );
+

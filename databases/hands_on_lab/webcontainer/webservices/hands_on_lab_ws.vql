@@ -1,0 +1,5 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+UNDEPLOY IF EXISTS WEBSERVICE hands_on_lab_ws;
+
+DEPLOY WEBSERVICE hands_on_lab_ws LOGIN = '${databases.hands_on_lab.webcontainer.webservices.hands_on_lab_ws.LOGIN}' PASSWORD = '${databases.hands_on_lab.webcontainer.webservices.hands_on_lab_ws.PASSWORD}' ${databases.hands_on_lab.webcontainer.webservices.hands_on_lab_ws.PASSWORD.ENCRYPTED};
+

@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE DATABASE hands_on_lab '';
+
+ALTER DATABASE hands_on_lab
+  CHARSET DEFAULT;
+

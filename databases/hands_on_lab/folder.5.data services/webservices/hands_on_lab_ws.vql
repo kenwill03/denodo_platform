@@ -1,0 +1,51 @@
+﻿CREATE OR REPLACE REST WEBSERVICE hands_on_lab_ws
+    CONNECTION (
+        CHUNKSIZE = 1000
+        CHUNKTIMEOUT = 90000
+        QUERYTIMEOUT = 900000
+        POOLENABLED = true
+        POOLINITSIZE = 0
+        POOLMAXACTIVE = 30
+    )
+    DEFAULTREPRESENTATION = HTML
+    SUPPORTEDREPRESENTATIONS (HTML, XML, JSON)
+    RESOURCES (
+        VIEW customer FIELDS (
+            c_custkey : 'long', 
+            c_name : 'text', 
+            c_address : 'text', 
+            c_nationkey : 'long', 
+            c_phone : 'text', 
+            c_acctbal : 'long', 
+            c_mktsegment : 'text', 
+            c_comment : 'text'
+        ),
+        VIEW nation FIELDS (
+            n_nationkey : 'long', 
+            n_name : 'text', 
+            n_regionkey : 'long', 
+            n_comment : 'text'
+        ),
+        VIEW orders FIELDS (
+            o_orderkey : 'decimal', 
+            o_custkey : 'decimal', 
+            o_orderstatus : 'text', 
+            o_totalprice : 'decimal', 
+            o_orderdate : 'timestamp', 
+            o_orderpriority : 'text', 
+            o_clerk : 'text', 
+            o_shippriority : 'decimal', 
+            o_comment : 'text'
+        ),
+        VIEW region FIELDS (
+            r_regionkey : 'long', 
+            r_name : 'text', 
+            r_comment : 'text'
+        )
+    )
+    ASSOCIATIONS ( nation_customer, region_nation )
+    OPTIONS ( NULLVALUESASEMPTYXMLELEMENTS = false
+        PROCESS_FUNCTIONS_IN_SELECT_PARAMETER = true ) 
+    OPENAPI2 ( API_VERSION = '1.0.0' ) 
+    FOLDER = '/5.data services';
+

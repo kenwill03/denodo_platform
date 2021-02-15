@@ -1,0 +1,6 @@
+﻿CREATE OR REPLACE ASSOCIATION region_nation REFERENTIAL CONSTRAINT 
+FOLDER = '/4.associations'
+    ENDPOINT nation region PRINCIPAL (0,1)
+    ENDPOINT region nation (0,*)
+    ADD MAPPING r_regionkey=n_regionkey;
+

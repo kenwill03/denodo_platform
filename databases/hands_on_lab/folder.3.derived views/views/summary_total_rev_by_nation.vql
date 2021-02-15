@@ -1,0 +1,32 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC summary_total_rev_by_nation
+    FOLDER = '/3.derived views'
+    DATASOURCENAME=ds_oracle_express
+    SCHEMANAME='${databases.hands_on_lab.folder.3..derived views.views.jdbc.summary_total_rev_by_nation.SCHEMANAME}' 
+    RELATIONNAME='SUMMARY_TOTAL_REV_BY_NATION' 
+    OUTPUTSCHEMA (
+        national_name = 'NATIONAL_NAME' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='45', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        total_rev = 'TOTAL_REV' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='20', sourcetyperadix='10', sourcetypesize='38', sourcetypeid='3', sourcetypename='NUMBER')  SORTABLE
+    );
+
+CREATE OR REPLACE SUMMARY VIEW summary_total_rev_by_nation (
+        national_name:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '45'),
+        total_rev:decimal (sourcetypeid = '3', sourcetyperadix = '10', sourcetypedecimals = '20', sourcetypesize = '38')
+    )
+    FOLDER = '/3.derived views'
+    ADD SEARCHMETHOD summary_total_rev_by_nation(
+        I18N jp
+        CONSTRAINTS (
+             ADD national_name (any) OPT ANY
+             ADD total_rev (any) OPT ANY
+        )
+        OUTPUTLIST (national_name, total_rev
+        )
+        WRAPPER (jdbc summary_total_rev_by_nation)
+    )
+    SMART_ONLY
+AS SELECT nation.n_name AS national_name, sum(orders.o_totalprice) AS total_rev FROM ((orders AS orders INNER JOIN customer AS customer ON orders.o_custkey = customer.c_custkey ) INNER JOIN nation AS nation ON customer.c_nationkey = nation.n_nationkey ) INNER JOIN region AS region ON nation.n_regionkey = region.r_regionkey  GROUP BY nation.n_name;
+
+ALTER VIEW summary_total_rev_by_nation
+ DELEGATESTATSQUERY = true GET_TABLE_STATS = true SMART_ONLY;
+

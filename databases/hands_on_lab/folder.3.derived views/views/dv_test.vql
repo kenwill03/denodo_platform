@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW dv_test FOLDER = '/3.derived views' AS SELECT bv_test.formated_value AS formated_value, bv_test.original_value AS original_value, cast('text', cast(original_value AS DECIMAL(7,1))) AS formated_value2 FROM bv_test;
+
+ALTER VIEW dv_test
+ LAYOUT (bv_test = [20, 20, 200, 65]);
+

@@ -1,0 +1,37 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC region
+    FOLDER = '/2.base views'
+    DATASOURCENAME=ds_mysql_crm
+    CATALOGNAME='${databases.hands_on_lab.folder.2..base views.views.jdbc.region.CATALOGNAME}' 
+    RELATIONNAME='region' 
+    OUTPUTSCHEMA (
+        r_regionkey = 'r_regionkey' :'java.lang.Long' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', description='', sourcetypeid='3', sourcetypename='DECIMAL')  NOT NULL SORTABLE,
+        r_name = 'r_name' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='45', description='', sourcetypeid='12', sourcetypename='VARCHAR')  SORTABLE,
+        r_comment = 'r_comment' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='200', description='', sourcetypeid='12', sourcetypename='VARCHAR')  SORTABLE
+    )
+    CONSTRAINT 'PRIMARY' PRIMARY KEY ( 'r_regionkey' )
+    INDEX 'PRIMARY' CLUSTER UNIQUE PRIMARY ( 'r_regionkey' );
+
+CREATE OR REPLACE TABLE region I18N jp (
+        r_regionkey:long (notnull, sourcetypeid = '-5', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10', description = ''),
+        r_name:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '45', description = ''),
+        r_comment:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '200', description = '')
+    )
+    FOLDER = '/2.base views'
+    CONSTRAINT 'PRIMARY' PRIMARY KEY ( 'r_regionkey' )
+    CACHE OFF
+    BATCHSIZEINCACHE DEFAULT
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD region(
+        I18N jp
+        CONSTRAINTS (
+             ADD r_regionkey (any) OPT ANY
+             ADD r_name (any) OPT ANY
+             ADD r_comment (any) OPT ANY
+        )
+        OUTPUTLIST (r_comment, r_name, r_regionkey
+        )
+        WRAPPER (jdbc region)
+    )
+    ATSOURCE_THROUGH_VDP_ONLY;
+

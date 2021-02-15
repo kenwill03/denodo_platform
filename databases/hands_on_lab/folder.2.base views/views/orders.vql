@@ -1,0 +1,52 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC orders
+    FOLDER = '/2.base views'
+    DATASOURCENAME=ds_oracle_express
+    SCHEMANAME='${databases.hands_on_lab.folder.2..base views.views.jdbc.orders.SCHEMANAME}' 
+    RELATIONNAME='ORDERS' 
+    OUTPUTSCHEMA (
+        o_orderkey = 'O_ORDERKEY' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='38', sourcetypeid='3', sourcetypename='NUMBER')  SORTABLE,
+        o_custkey = 'O_CUSTKEY' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='38', sourcetypeid='3', sourcetypename='NUMBER')  SORTABLE,
+        o_orderstatus = 'O_ORDERSTATUS' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='5', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        o_totalprice = 'O_TOTALPRICE' :'java.math.BigDecimal' (OPT) (sourcetyperadix='10', sourcetypeid='3', sourcetypename='NUMBER')  SORTABLE,
+        o_orderdate = 'O_ORDERDATE' :'java.time.LocalDateTime' (OPT) (sourcetypedecimals='6', sourcetyperadix='10', sourcetypesize='11', sourcetypeid='93', sourcetypename='TIMESTAMP(6)')  SORTABLE,
+        o_orderpriority = 'O_ORDERPRIORITY' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='20', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        o_clerk = 'O_CLERK' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='50', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        o_shippriority = 'O_SHIPPRIORITY' :'java.math.BigDecimal' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='38', sourcetypeid='3', sourcetypename='NUMBER')  SORTABLE,
+        o_comment = 'O_COMMENT' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='400', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE
+    );
+
+CREATE OR REPLACE TABLE orders I18N jp (
+        o_orderkey:decimal (sourcetypeid = '3', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '38'),
+        o_custkey:decimal (sourcetypeid = '3', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '38'),
+        o_orderstatus:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '5'),
+        o_totalprice:decimal (sourcetypeid = '3', sourcetyperadix = '10'),
+        o_orderdate:timestamp (sourcetypeid = '93', sourcetyperadix = '10', sourcetypedecimals = '6', sourcetypesize = '11'),
+        o_orderpriority:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '20'),
+        o_clerk:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '50'),
+        o_shippriority:decimal (sourcetypeid = '3', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '38'),
+        o_comment:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '400')
+    )
+    FOLDER = '/2.base views'
+    CACHE OFF
+    BATCHSIZEINCACHE DEFAULT
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD orders(
+        I18N jp
+        CONSTRAINTS (
+             ADD o_orderkey (any) OPT ANY
+             ADD o_custkey (any) OPT ANY
+             ADD o_orderstatus (any) OPT ANY
+             ADD o_totalprice (any) OPT ANY
+             ADD o_orderdate (any) OPT ANY
+             ADD o_orderpriority (any) OPT ANY
+             ADD o_clerk (any) OPT ANY
+             ADD o_shippriority (any) OPT ANY
+             ADD o_comment (any) OPT ANY
+        )
+        OUTPUTLIST (o_clerk, o_comment, o_custkey, o_orderdate, o_orderkey, o_orderpriority, o_orderstatus, o_shippriority, o_totalprice
+        )
+        WRAPPER (jdbc orders)
+    )
+    SMART_ONLY;
+

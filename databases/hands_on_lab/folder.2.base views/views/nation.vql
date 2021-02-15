@@ -1,0 +1,42 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC nation
+    FOLDER = '/2.base views'
+    DATASOURCENAME=ds_mysql_crm
+    CATALOGNAME='${databases.hands_on_lab.folder.2..base views.views.jdbc.nation.CATALOGNAME}' 
+    RELATIONNAME='nation' 
+    OUTPUTSCHEMA (
+        n_nationkey = 'n_nationkey' :'java.lang.Long' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', description='', sourcetypeid='3', sourcetypename='DECIMAL')  NOT NULL SORTABLE,
+        n_name = 'n_name' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='45', description='', sourcetypeid='12', sourcetypename='VARCHAR')  SORTABLE,
+        n_regionkey = 'n_regionkey' :'java.lang.Long' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', description='', sourcetypeid='3', sourcetypename='DECIMAL')  SORTABLE,
+        n_comment = 'n_comment' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='200', description='', sourcetypeid='12', sourcetypename='VARCHAR')  SORTABLE
+    )
+    CONSTRAINT 'PRIMARY' PRIMARY KEY ( 'n_nationkey' )
+    CONSTRAINT 'n_regionkey' FOREIGN KEY ( 'n_regionkey' ) 
+    REFERENCES 'hands_on_crm'.'region'( 'r_regionkey' )  ON UPDATE NO ACTION  ON DELETE NO ACTION NOT DEFERRABLE 
+    INDEX 'PRIMARY' CLUSTER UNIQUE PRIMARY ( 'n_nationkey' )
+    INDEX 'n_regionkey_idx' OTHER ( 'n_regionkey' );
+
+CREATE OR REPLACE TABLE nation I18N jp (
+        n_nationkey:long (notnull, sourcetypeid = '-5', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10', description = ''),
+        n_name:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '45', description = ''),
+        n_regionkey:long (sourcetypeid = '-5', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10', description = ''),
+        n_comment:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '200', description = '')
+    )
+    FOLDER = '/2.base views'
+    PRIMARY KEY ( 'n_nationkey' )
+    CACHE OFF
+    BATCHSIZEINCACHE DEFAULT
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD nation(
+        I18N jp
+        CONSTRAINTS (
+             ADD n_nationkey (any) OPT ANY
+             ADD n_name (any) OPT ANY
+             ADD n_regionkey (any) OPT ANY
+             ADD n_comment (any) OPT ANY
+        )
+        OUTPUTLIST (n_comment, n_name, n_nationkey, n_regionkey
+        )
+        WRAPPER (jdbc nation)
+    );
+

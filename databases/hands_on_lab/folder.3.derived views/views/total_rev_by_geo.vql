@@ -1,0 +1,9 @@
+﻿CREATE OR REPLACE VIEW total_rev_by_geo FOLDER = '/3.derived views' AS SELECT nation.n_name AS national_name, region.r_name AS region_name, sum(orders.o_totalprice) AS total_revenue FROM ((orders AS orders INNER JOIN customer AS customer ON orders.o_custkey = customer.c_custkey ) INNER JOIN nation AS nation ON customer.c_nationkey = nation.n_nationkey ) INNER JOIN region AS region ON nation.n_regionkey = region.r_regionkey  GROUP BY nation.n_name, region.r_name CONTEXT (DATAMOVEMENTPLAN = customer : OFF nation : OFF orders : OFF region : OFF);
+
+ALTER VIEW total_rev_by_geo
+ LAYOUT (orders = [20, 20, 200, 205], customer = [290, 40, 200, 185], nation = [560, 90, 200, 105], region = [570, 270, 200, 85]);
+
+ALTER VIEW total_rev_by_geo
+ CACHE FULL
+     BATCHSIZEINCACHE DEFAULT TIMETOLIVEINCACHE DEFAULT;
+

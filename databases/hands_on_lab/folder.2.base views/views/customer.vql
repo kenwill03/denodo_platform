@@ -1,0 +1,55 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC customer
+    FOLDER = '/2.base views'
+    DATASOURCENAME=ds_mysql_crm
+    CATALOGNAME='${databases.hands_on_lab.folder.2..base views.views.jdbc.customer.CATALOGNAME}' 
+    RELATIONNAME='customer' 
+    OUTPUTSCHEMA (
+        c_custkey = 'c_custkey' :'java.lang.Long' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', description='', sourcetypeid='3', sourcetypename='DECIMAL')  NOT NULL SORTABLE,
+        c_name = 'c_name' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='25', description='', sourcetypeid='12', sourcetypename='VARCHAR')  SORTABLE,
+        c_address = 'c_address' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='40', description='', sourcetypeid='12', sourcetypename='VARCHAR')  SORTABLE,
+        c_nationkey = 'c_nationkey' :'java.lang.Long' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', description='', sourcetypeid='3', sourcetypename='DECIMAL')  SORTABLE,
+        c_phone = 'c_phone' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='38', description='', sourcetypeid='12', sourcetypename='VARCHAR')  SORTABLE,
+        c_acctbal = 'c_acctbal' :'java.lang.Long' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', description='', sourcetypeid='3', sourcetypename='DECIMAL')  SORTABLE,
+        c_mktsegment = 'c_mktsegment' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='10', description='', sourcetypeid='12', sourcetypename='VARCHAR')  SORTABLE,
+        c_comment = 'c_comment' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='200', description='', sourcetypeid='12', sourcetypename='VARCHAR')  SORTABLE
+    )
+    CONSTRAINT 'PRIMARY' PRIMARY KEY ( 'c_custkey' )
+    CONSTRAINT 'c_nationkey' FOREIGN KEY ( 'c_nationkey' ) 
+    REFERENCES 'hands_on_crm'.'nation'( 'n_nationkey' )  ON UPDATE NO ACTION  ON DELETE NO ACTION NOT DEFERRABLE 
+    INDEX 'PRIMARY' CLUSTER UNIQUE PRIMARY ( 'c_custkey' )
+    INDEX 'c_nationkey_idx' OTHER ( 'c_nationkey' );
+
+CREATE OR REPLACE TABLE customer I18N jp (
+        c_custkey:long (notnull, sourcetypeid = '-5', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10', description = ''),
+        c_name:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '25', description = ''),
+        c_address:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '40', description = ''),
+        c_nationkey:long (sourcetypeid = '-5', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10', description = ''),
+        c_phone:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '38', description = ''),
+        c_acctbal:long (sourcetypeid = '-5', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10', description = ''),
+        c_mktsegment:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '10', description = ''),
+        c_comment:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '200', description = '')
+    )
+    FOLDER = '/2.base views'
+    PRIMARY KEY ( 'c_custkey' )
+    CACHE OFF
+    BATCHSIZEINCACHE DEFAULT
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD customer(
+        I18N jp
+        CONSTRAINTS (
+             ADD c_custkey (any) OPT ANY
+             ADD c_name (any) OPT ANY
+             ADD c_address (any) OPT ANY
+             ADD c_nationkey (any) OPT ANY
+             ADD c_phone (any) OPT ANY
+             ADD c_acctbal (any) OPT ANY
+             ADD c_mktsegment (any) OPT ANY
+             ADD c_comment (any) OPT ANY
+        )
+        OUTPUTLIST (c_acctbal, c_address, c_comment, c_custkey, c_mktsegment, c_name, c_nationkey, c_phone
+        )
+        WRAPPER (jdbc customer)
+    )
+    ATSOURCE_THROUGH_VDP_ONLY;
+
