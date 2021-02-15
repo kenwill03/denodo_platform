@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW p_region FOLDER = '/3.derived views' AS SELECT region.r_regionkey AS r_regionkey, region.r_name AS r_name, region.r_comment AS r_comment FROM region;
+
+ALTER VIEW p_region
+ LAYOUT (region = [20, 20, 200, 85]);
+
