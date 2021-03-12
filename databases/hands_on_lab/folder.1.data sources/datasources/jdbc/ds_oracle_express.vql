@@ -23,9 +23,13 @@ CREATE OR REPLACE DATASOURCE JDBC ds_oracle_express
     MINEVICTABLETIME = 1800000
     POOLPREPAREDSTATEMENTS = false
     MAXOPENPREPAREDSTATEMENTS = -1
-    PROPERTIES ('includeSynonyms'='false', 'remarksReporting'='false')
+    PROPERTIES ('remarksReporting'='false', 'includeSynonyms'='false')
     DATA_LOAD_CONFIGURATION (
         USE_FOR_QUERY_OPTIMIZATION = DATA_MOVEMENT
         BATCHINSERTSIZE = 200
+    )
+    SOURCECONFIGURATION (
+        delegatescalarfunctionslist = (abs, acos, addday, addhour, addminute, addmonth, addsecond, addweek, addyear, ascii, asin, atan, atan2, case, cast, ceil, char, coalesce, concat, convert_timezone(evaluate_literal), cos, cot, current_date, degrees, div, exp, expression_list, firstdayofmonth, firstdayofweek, floor, formatdate, getday, getdayofweek, getdayofyear, getdaysbetween, gethour, getmicrosecond, getmillisecond, getminute, getmonth, getmonthsbetween, getnanosecond, getquarter, getsecond, gettimeinmillis, getweek, getyear, instr, lastdayofmonth, lastdayofweek, len, ln, log, lower, ltrim, max, min, mod, mult, nextweekday, now, nullif, pi, position, pow, power, previousweekday, radians, regexp, removeaccents, repeat, replace, round, rownum, rtrim, sign, sin, sql_trim, sqrt, substr, substring, subtract, sum, tan, textcat, textconstant, to_date, to_interval_day_second, to_interval_year_month, to_localdate, to_timestamp, to_timestamptz, trim, trunc, upper, xmlquery, xpath),
+        delegateanalyticfunctionslist = (avg, cume_dist, dense_rank, first_value, lag, last_value, lead, max, min, ntile, percent_rank, percentile_cont, percentile_disc, rank, row_number, sum)
     );
 

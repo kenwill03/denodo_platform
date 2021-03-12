@@ -31,5 +31,8 @@ CREATE OR REPLACE DATASOURCE JDBC ds_mysql_crm
             ONMOVEREAD = false,
             ONMOVEWRITE = true
         )
+    )
+    SOURCECONFIGURATION (
+        delegatescalarfunctionslist = (abs, acos, addday, addhour, addminute, addmonth, addsecond, addweek, addyear, ascii, asin, atan, atan2, case, cast, ceil, char, coalesce, concat, convert_timezone(evaluate_literal), cos, cot, current_date, degrees, div, exp, firstdayofmonth, floor, formatdate, getday, getdayofweek, getdayofyear, getdaysbetween, gethour, getmicrosecond, getmillisecond, getminute, getmonth, getmonthsbetween, getnanosecond, getsecond, gettimeinmillis, getyear, instr, lastdayofmonth, len, ln, log, lower, ltrim, max, min, mod, mult, now, nullif, pi, position, pow, power, radians, rand, removeaccents, repeat, replace, round, rtrim, sign, sin, sql_trim, sqrt, substr, substring, subtract, sum, tan, textcat, textconstant, to_date, to_localdate, to_time, to_timestamp, trim, upper)
     );
 

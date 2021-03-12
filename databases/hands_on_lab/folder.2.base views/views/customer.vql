@@ -21,20 +21,20 @@ CREATE OR REPLACE WRAPPER JDBC customer
     INDEX 'c_nationkey_idx' OTHER ( 'c_nationkey' );
 
 CREATE OR REPLACE TABLE customer I18N jp (
-        c_custkey:long (notnull, sourcetypeid = '-5', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10', description = ''),
-        c_name:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '25', description = ''),
-        c_address:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '40', description = ''),
-        c_nationkey:long (sourcetypeid = '-5', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10', description = ''),
-        c_phone:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '38', description = ''),
-        c_acctbal:long (sourcetypeid = '-5', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10', description = ''),
-        c_mktsegment:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '10', description = ''),
-        c_comment:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '200', description = '')
+        c_custkey:long (notnull, sourcetypeid = '-5', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10', description = '顧客キーです。'),
+        c_name:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '25', description = '顧客名'),
+        c_address:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '40', description = '顧客のアドレス'),
+        c_nationkey:long (sourcetypeid = '-5', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10', description = '顧客の国コード'),
+        c_phone:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '38', description = 'this is the c_phone'),
+        c_acctbal:long (sourcetypeid = '-5', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10', description = 'this is the c_acctbal'),
+        c_mktsegment:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '10', description = 'this is the mktsegment'),
+        c_comment:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '200', description = 'this is the c_comment')
     )
     FOLDER = '/2.base views'
     PRIMARY KEY ( 'c_custkey' )
-    CACHE OFF
+    CACHE FULL
     BATCHSIZEINCACHE DEFAULT
-    TIMETOLIVEINCACHE DEFAULT
+    TIMETOLIVEINCACHE NOEXPIRE
     ADD SEARCHMETHOD customer(
         I18N jp
         CONSTRAINTS (
@@ -51,5 +51,6 @@ CREATE OR REPLACE TABLE customer I18N jp (
         )
         WRAPPER (jdbc customer)
     )
+    DECLARE CACHE INDEX c_nationkey_idx ON (c_nationkey)
     ATSOURCE_THROUGH_VDP_ONLY;
 

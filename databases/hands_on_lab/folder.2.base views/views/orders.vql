@@ -28,9 +28,9 @@ CREATE OR REPLACE TABLE orders I18N jp (
         o_comment:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '400')
     )
     FOLDER = '/2.base views'
-    CACHE OFF
+    CACHE FULL
     BATCHSIZEINCACHE DEFAULT
-    TIMETOLIVEINCACHE DEFAULT
+    TIMETOLIVEINCACHE NOEXPIRE
     ADD SEARCHMETHOD orders(
         I18N jp
         CONSTRAINTS (
@@ -48,5 +48,6 @@ CREATE OR REPLACE TABLE orders I18N jp (
         )
         WRAPPER (jdbc orders)
     )
+    DECLARE CACHE INDEX o_orderdate_idx ON (o_orderdate ASC)
     SMART_ONLY;
 
