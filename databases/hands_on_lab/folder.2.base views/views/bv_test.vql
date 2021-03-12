@@ -8,7 +8,7 @@
     );
 
 CREATE OR REPLACE TABLE bv_test I18N jp (
-        formated_value:text (sourcetypeid = '12', sourcetypedecimals = '0', sourcetypesize = '7'),
+        formated_value:text (sourcetypeid = '12', sourcetypedecimals = '0', sourcetypesize = '7', description = 'test'),
         original_value:decimal (sourcetypeid = '3')
     )
     FOLDER = '/2.base views'
