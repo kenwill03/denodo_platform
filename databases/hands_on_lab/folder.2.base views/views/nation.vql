@@ -18,7 +18,7 @@ CREATE OR REPLACE WRAPPER JDBC nation
 
 CREATE OR REPLACE TABLE nation I18N jp (
         n_nationkey:long (notnull, sourcetypeid = '-5', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10', description = 'test'),
-        n_name:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '45', description = ''),
+        n_name:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '45', description = 'test'),
         n_regionkey:long (sourcetypeid = '-5', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10', description = ''),
         n_comment:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '200', description = '')
     )
