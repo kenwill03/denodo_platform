@@ -1,0 +1,5 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+UNDEPLOY IF EXISTS WEBSERVICE customer_data;
+
+DEPLOY WEBSERVICE customer_data LOGIN = '${databases.hands_on_lab.webcontainer.webservices.customer_data.LOGIN}' PASSWORD = '${databases.hands_on_lab.webcontainer.webservices.customer_data.PASSWORD}' ${databases.hands_on_lab.webcontainer.webservices.customer_data.PASSWORD.ENCRYPTED};
+

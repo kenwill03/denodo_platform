@@ -1,0 +1,9 @@
+﻿/databases/hands_on_lab/folder.5.data services/5.data services.vql
+/databases/hands_on_lab/folder.3.derived views/3.derived views.vql
+/databases/hands_on_lab/folder.2.base views/2.base views.vql
+/databases/hands_on_lab/folder.1.data sources/1.data sources.vql
+/databases/hands_on_lab/folder.1.data sources/datasources/jdbc/ds_mysql_crm.vql
+/databases/hands_on_lab/folder.2.base views/views/customer.vql
+/databases/hands_on_lab/folder.2.base views/views/nation.vql
+/databases/hands_on_lab/folder.2.base views/views/region.vql
+/databases/hands_on_lab/folder.3.derived views/views/customer_data.vql
