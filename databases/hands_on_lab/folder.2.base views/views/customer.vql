@@ -28,7 +28,7 @@ CREATE OR REPLACE TABLE customer I18N jp (
         c_phone:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '38', description = '電話番号'),
         c_acctbal:long (sourcetypeid = '-5', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10', description = 'テスト'),
         c_mktsegment:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '10', description = 'テスト'),
-        c_comment:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '200', description = 'this is the c_comment')
+        c_comment:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '200', description = 'テスト')
     )
     FOLDER = '/2.base views'
     PRIMARY KEY ( 'c_custkey' )
