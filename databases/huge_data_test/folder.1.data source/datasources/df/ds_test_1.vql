@@ -1,0 +1,8 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE DATASOURCE DF ds_test_1
+    FOLDER = '/1.data source'
+    ROUTE LOCAL 'LocalConnection' '${databases.huge_data_test.folder.1..data source.datasources.df.ds_test_1.ROUTE.LOCAL.PATH}' FILENAMEPATTERN = '..videos.csv'
+    COLUMNDELIMITER = ','
+    ENDOFLINEDELIMITER = '\n'
+    HEADER = TRUE;
+

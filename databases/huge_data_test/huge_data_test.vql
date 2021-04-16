@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE DATABASE huge_data_test '';
+
+ALTER DATABASE huge_data_test
+  CHARSET DEFAULT;
+

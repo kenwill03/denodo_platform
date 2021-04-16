@@ -1,0 +1,68 @@
+﻿CREATE OR REPLACE WRAPPER DF ds_test_1
+    FOLDER = '/2.base view'
+    DATASOURCENAME=ds_test_1
+    OUTPUTSCHEMA (
+        video_id = 'video_id' (OPT),
+        trending_date = 'trending_date' (OPT),
+        title = 'title' (OPT),
+        channel_title = 'channel_title' (OPT),
+        category_id = 'category_id' (OPT),
+        publish_time = 'publish_time' (OPT),
+        tags = 'tags' (OPT),
+        views = 'views' (OPT),
+        likes = 'likes' (OPT),
+        dislikes = 'dislikes' (OPT),
+        comment_count = 'comment_count' (OPT),
+        thumbnail_link = 'thumbnail_link' (OPT),
+        comments_disabled = 'comments_disabled' (OPT),
+        ratings_disabled = 'ratings_disabled' (OPT),
+        video_error_or_removed = 'video_error_or_removed' (OPT),
+        description = 'description' (OPT)
+    );
+
+CREATE OR REPLACE TABLE ds_test_1 I18N jp (
+        video_id:text (description = 'test'),
+        trending_date:text,
+        title:text,
+        channel_title:text,
+        category_id:text,
+        publish_time:text,
+        tags:text,
+        views:text,
+        likes:text,
+        dislikes:text,
+        comment_count:text,
+        thumbnail_link:text,
+        comments_disabled:text,
+        ratings_disabled:text,
+        video_error_or_removed:text,
+        description:text
+    )
+    FOLDER = '/2.base view'
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD ds_test_1(
+        I18N jp
+        CONSTRAINTS (
+             ADD video_id (any) OPT ANY
+             ADD trending_date (any) OPT ANY
+             ADD title (any) OPT ANY
+             ADD channel_title (any) OPT ANY
+             ADD category_id (any) OPT ANY
+             ADD publish_time (any) OPT ANY
+             ADD tags (any) OPT ANY
+             ADD views (any) OPT ANY
+             ADD likes (any) OPT ANY
+             ADD dislikes (any) OPT ANY
+             ADD comment_count (any) OPT ANY
+             ADD thumbnail_link (any) OPT ANY
+             ADD comments_disabled (any) OPT ANY
+             ADD ratings_disabled (any) OPT ANY
+             ADD video_error_or_removed (any) OPT ANY
+             ADD description (any) OPT ANY
+        )
+        OUTPUTLIST (category_id, channel_title, comment_count, comments_disabled, description, dislikes, likes, publish_time, ratings_disabled, tags, thumbnail_link, title, trending_date, video_error_or_removed, video_id, views
+        )
+        WRAPPER (df ds_test_1)
+    );
+
