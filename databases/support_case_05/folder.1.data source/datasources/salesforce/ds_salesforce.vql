@@ -1,0 +1,22 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE DATASOURCE SALESFORCE ds_salesforce
+    FOLDER = '/1.data source'
+    BASE_URL = ''
+    API_VERSION = 'test'
+    API_CONFIGURATION (
+        TYPE=REST
+    )
+    INCLUDE_ALL = FALSE
+    AUTHENTICATION OAUTH20 ( 
+      REQUESTSIGNINGMETHOD = ${databases.support_case_05.folder.1..data source.datasources.salesforce.ds_salesforce.OAUTH20.HTTP.REQUESTSIGNINGMETHOD}
+      AUTHENTICATION_GRANT = PASSWORD_GRANT (
+        USER_IDENTIFIER = '${databases.support_case_05.folder.1..data source.datasources.salesforce.ds_salesforce.OAUTH20.USER.IDENTIFIER}'
+        USER_PASSWORD = '${databases.support_case_05.folder.1..data source.datasources.salesforce.ds_salesforce.OAUTH20.USER.PASSWORD}' ${databases.support_case_05.folder.1..data source.datasources.salesforce.ds_salesforce.OAUTH20.USER.PASSWORD.ENCRYPTED}
+      )
+      TOKENENDPOINTURL = '${databases.support_case_05.folder.1..data source.datasources.salesforce.ds_salesforce.OAUTH20.HTTP.TOKENENDPOINTURL}'
+      CLIENTIDENTIFIER = '${databases.support_case_05.folder.1..data source.datasources.salesforce.ds_salesforce.OAUTH20.HTTP.CLIENTIDENTIFIER}'
+      CLIENTSECRET = '${databases.support_case_05.folder.1..data source.datasources.salesforce.ds_salesforce.OAUTH20.HTTP.CLIENTSECRET}' ${databases.support_case_05.folder.1..data source.datasources.salesforce.ds_salesforce.OAUTH20.HTTP.CLIENTSECRET.ENCRYPTED}
+    )
+    PROXY OFF
+    DESCRIPTION = 'test';
+

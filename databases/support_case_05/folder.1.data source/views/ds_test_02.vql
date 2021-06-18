@@ -1,0 +1,18 @@
+﻿CREATE OR REPLACE TABLE ds_test_02 I18N jp (
+        key:int (sourcetypeid = '4'),
+        value:int (sourcetypeid = '4')
+    )
+    FOLDER = '/1.data source'
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD ds_test_02(
+        I18N jp
+        CONSTRAINTS (
+             ADD key (any) OPT ANY
+             ADD value (any) OPT ANY
+        )
+        OUTPUTLIST (key, value
+        )
+        WRAPPER (custom ds_test_02)
+    );
+
